@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pas_mobile_11pplg2_08/components/custom_text.dart';
+import 'package:pas_mobile_11pplg2_08/controllers/login_controller.dart';
 import 'package:pas_mobile_11pplg2_08/controllers/splash_controller.dart';
 
 class SplashscreenPage extends StatelessWidget {
@@ -9,6 +10,8 @@ class SplashscreenPage extends StatelessWidget {
   final SplashscreenController splashController = Get.put(
     SplashscreenController(),
   );
+
+  final loginController = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {

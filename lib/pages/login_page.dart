@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pas_mobile_11pplg2_08/assets/colors.dart';
 import 'package:pas_mobile_11pplg2_08/components/custom_button.dart';
 import 'package:pas_mobile_11pplg2_08/components/custom_text.dart';
 import 'package:pas_mobile_11pplg2_08/components/custom_text_field.dart';
 import 'package:pas_mobile_11pplg2_08/controllers/login_controller.dart';
+
 import 'package:pas_mobile_11pplg2_08/routes/routes.dart';
 
 class LoginPage extends StatelessWidget {
@@ -17,16 +19,16 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Login Page"),
-        backgroundColor: Colors.red,
+        backgroundColor: AppColors.primaryDark,
       ),
       body: Center(
-        child: Center(
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30.0),
 
             child: Card(
               elevation: 8,
-              shadowColor: Colors.deepPurple,
+              shadowColor: AppColors.primaryLight,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18),
               ),
@@ -38,7 +40,7 @@ class LoginPage extends StatelessWidget {
                   children: [
                     CustomText(
                       myText: "Welcome!",
-                      myTextColor: Colors.deepPurple,
+                      myTextColor: AppColors.primary,
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                       textAlign: TextAlign.center,
@@ -82,20 +84,28 @@ class LoginPage extends StatelessWidget {
 
                     Padding(padding: EdgeInsets.only(top: 15)),
 
-                    // BTN
                     Obx(() {
                       return loginController.isLoading.value
                           ? const CircularProgressIndicator()
                           : SizedBox(
                               width: double.infinity,
                               height: 48,
-                              child: CustomButton(
-                                text: "Login",
+                              child: ElevatedButton(
                                 onPressed: () => loginController.login(context),
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                myTextColor: Colors.white,
-                                backgroundColor: Colors.purple,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.primary,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                child: const Text(
+                                  "Login",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             );
                     }),
@@ -105,39 +115,13 @@ class LoginPage extends StatelessWidget {
                     CustomButton(
                       text: "Register",
                       fontWeight: FontWeight.bold,
-                      fontSize: 12,
+                      fontSize: 16,
                       myTextColor: Colors.white,
-                      backgroundColor: Colors.purple,
+                      backgroundColor: AppColors.primary,
                       onPressed: () {
                         Get.offAllNamed(AppRoutes.registerPage);
                       },
                     ),
-
-                    // Obx(() {
-                    //   return loginController.isLoading.value
-                    //       ? const CircularProgressIndicator()
-                    //       : SizedBox(
-                    //           width: double.infinity,
-                    //           height: 48,
-                    //           child: ElevatedButton(
-                    //             onPressed: () => loginController.login(context),
-                    //             style: ElevatedButton.styleFrom(
-                    //               backgroundColor: Colors.deepPurple,
-                    //               shape: RoundedRectangleBorder(
-                    //                 borderRadius: BorderRadius.circular(12),
-                    //               ),
-                    //             ),
-                    //             child: const Text(
-                    //               "Login",
-                    //               style: TextStyle(
-                    //                 color: Colors.white,
-                    //                 fontSize: 16,
-                    //                 fontWeight: FontWeight.bold,
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         );
-                    // }),
                   ],
                 ),
               ),

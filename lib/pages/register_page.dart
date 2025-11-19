@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pas_mobile_11pplg2_08/assets/colors.dart';
 import 'package:pas_mobile_11pplg2_08/components/custom_button.dart';
+import 'package:pas_mobile_11pplg2_08/components/custom_text.dart';
 import 'package:pas_mobile_11pplg2_08/components/custom_text_field.dart';
 import 'package:pas_mobile_11pplg2_08/controllers/register_controller.dart';
 import 'package:pas_mobile_11pplg2_08/routes/routes.dart';
@@ -10,120 +12,117 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RegisterController registerController =
-        Get.find<RegisterController>();
+    final RegisterController controller = Get.find<RegisterController>();
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Register", style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.purple, // warna janlup di AppColors nnti
+        backgroundColor: AppColors.primaryDark,
       ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.all(30),
             child: Card(
-              elevation: 8,
-              shadowColor: Colors.deepPurple,
+              elevation: 10,
+              shadowColor: AppColors.primaryLight.withOpacity(0.3),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(22),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(35.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 40,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const Text(
                       "Buat Akun Baru",
-                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple,
+                        color: AppColors.primaryDark,
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Text(
-                      "Isi semua detail untuk mendaftar.",
+
+                    const CustomText(
+                      fontWeight: FontWeight.w200,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    const SizedBox(height: 25),
-
-                    // NAMA LENGKAP
-                    CustomTextField(
-                      controller: registerController.fullNameController,
-                      label: 'Nama Lengkap',
-                      suffix: const Icon(Icons.person_2_outlined),
+                      myText: "Isi semua detail untuk membuat akun baru.",
+                      fontSize: 14,
+                      myTextColor: Colors.grey,
                     ),
 
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 30),
 
-                    // USN
+                    // FULL NAME
                     CustomTextField(
-                      controller: registerController.usernameController,
+                      controller: controller.fullNameController,
+                      label: "Nama Lengkap",
+                      suffix: const Icon(Icons.person_outline),
+                    ),
+                    const SizedBox(height: 18),
+
+                    // USERNAME
+                    CustomTextField(
+                      controller: controller.usernameController,
                       label: "Username",
-                      suffix: const Icon(Icons.person),
+                      suffix: const Icon(Icons.account_circle_outlined),
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 18),
 
                     // EMAIL
                     CustomTextField(
-                      controller: registerController.emailController,
-                      label: 'Email',
-                      suffix: const Icon(Icons.email),
+                      controller: controller.emailController,
+                      label: "Email",
+                      suffix: const Icon(Icons.email_outlined),
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 18),
 
-                    // PW
-                    // Obx(() {
-                    //   return CustomTextField(
-                    //     controller: registerController.passwordController,
-                    //     label: "Password",
-                    //     obscure: !registerController.isPasswordVisible.value,
-                    //     suffix: IconButton(
-                    //       icon: Icon(
-                    //         registerController.isPasswordVisible.value
-                    //             ? Icons.visibility
-                    //             : Icons.visibility_off,
-                    //       ),
-                    //       onPressed: registerController.togglePasswordVisibility,
-                    //     ),
-                    //   );
-                    // }),
-                    const SizedBox(height: 30),
-
-                    // BTN REGISTER
+                    // PASSWORD
                     Obx(() {
-                      return SizedBox(
-                        width: double.infinity,
-                        height: 48,
-                        child: CustomButton(
-                          text: registerController.isLoading.value
-                              ? 'Mendaftar...'
-                              : 'Register',
-                          onPressed: registerController.isLoading.value
-                              ? () {}
-                              : registerController.register,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          myTextColor: Colors.white,
-                          backgroundColor: Colors.deepPurple,
+                      return CustomTextField(
+                        controller: controller.passwordController,
+                        label: "Password",
+                        obscure: !controller.isPasswordVisible.value,
+                        suffix: IconButton(
+                          icon: Icon(
+                            controller.isPasswordVisible.value
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: controller.togglePasswordVisibility,
                         ),
                       );
                     }),
-                    const SizedBox(height: 12),
 
-                    // tombol login
+                    const SizedBox(height: 30),
+
+                    // BUTTON REGISTER
+                    Obx(() {
+                      return CustomButton(
+                        text: "Register",
+                        isLoading: controller.isLoading.value,
+                        onPressed: () => controller.register(),
+                      );
+                    }),
+
+                    const SizedBox(height: 16),
+
+                    // NAVIGASI KE LOGIN
                     TextButton(
                       onPressed: () {
                         Get.offAllNamed(AppRoutes.loginPage);
                       },
                       child: Text(
-                        'Sudah punya akun? Login',
-                        style: TextStyle(color: Colors.purple[800]),
+                        "Sudah punya akun? Login",
+                        style: TextStyle(
+                          color: AppColors.primaryDark,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ],

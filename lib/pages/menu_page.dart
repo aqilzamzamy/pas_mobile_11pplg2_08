@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart' hide MenuController;
 import 'package:get/get.dart';
+import 'package:pas_mobile_11pplg2_08/assets/colors.dart';
 import 'package:pas_mobile_11pplg2_08/controllers/menu_controller.dart';
 import 'package:pas_mobile_11pplg2_08/pages/profile_page.dart';
+import 'package:pas_mobile_11pplg2_08/pages/table_fav_tvshows_page.dart';
 import 'package:pas_mobile_11pplg2_08/pages/table_tvshows_page.dart';
 
 class MenuPage extends StatelessWidget {
@@ -10,10 +12,10 @@ class MenuPage extends StatelessWidget {
   final menuController = Get.find<MenuController>();
 
   final List<Widget> pages = [
-    // TableKutankPage(),
-    // TableMoviePage(),
     TableTvshowsPage(),
+    TableFavTvshowsPage(),
     ProfilePage(),
+    // TableKutankPage(),
   ];
 
   @override
@@ -22,18 +24,20 @@ class MenuPage extends StatelessWidget {
       () => Scaffold(
         body: pages[menuController.selectedIndex.value],
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.primary,
+          selectedItemColor: AppColors.accent,
+          unselectedItemColor: AppColors.primaryLight,
           currentIndex: menuController.selectedIndex.value,
           onTap: menuController.changePage,
           items: const [
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.music_note),
-            //   label: "Kutank",
-            // ),
-            // BottomNavigationBarItem(icon: Icon(Icons.movie), label: "Movie"),
             BottomNavigationBarItem(
               icon: Icon(Icons.movie),
-              label: "TV SHOW",
+              label: "Home",
+              //
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bookmark),
+              label: "Bookmarks",
               //
             ),
             BottomNavigationBarItem(
