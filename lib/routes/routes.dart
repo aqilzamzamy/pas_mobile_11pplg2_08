@@ -5,4 +5,5 @@ class AppRoutes {
   static const String profilePage = "/profilePage";
   static const String splashscreenPage = "/splashscreenPage";
   static const String tableTvshowsPage = "/tableTvshowspage";
+  static const String tableFavTvshowsPage = "/tableFavTvshowPage";
 }

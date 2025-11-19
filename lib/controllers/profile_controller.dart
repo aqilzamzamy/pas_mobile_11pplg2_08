@@ -1,3 +1,11 @@
 import 'package:get/get.dart';
+import 'package:pas_mobile_11pplg2_08/routes/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileController extends GetxController {}
+class ProfileController extends GetxController {
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    Get.offAllNamed(AppRoutes.loginPage);
+  }
+}
